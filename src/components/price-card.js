@@ -2,8 +2,8 @@ import { Box, Card, Text, Heading, Button } from 'theme-ui';
 import React from 'react';
 import List from './list';
 
-export default function PriceCard({
-  data: {
+const PriceCard = ({ data }) => {
+  const {
     header,
     name,
     description,
@@ -11,12 +11,50 @@ export default function PriceCard({
     buttonText = 'Start Free Trial',
     anotherOption,
     points,
-  },
-}) {
+  } = data;
+
   return (
-    <h1>PriceCard</h1>
+    <Card
+      className={header ? 'package__card active' : 'package__card'}
+      sx={styles.pricingBox}
+    >
+      {header && <Text sx={styles.header}>{header}</Text>}
+
+      <Box>
+        <Box sx={styles.pricingHeader} className="package__header">
+          <Heading className="package__name" variant="title">{name}</Heading>
+          <Text as="p">
+            {description}
+          </Text>
+        </Box>
+        <List items={points} childStyle={styles.listItem} />
+
+        <Text className="package__price" sx={styles.price}>
+          {priceWithUnit}
+          <span>/Monthly</span>
+        </Text>
+        <Box sx={styles.buttonGroup}>
+          <Button variant="primary" area-label={buttonText}>
+            {buttonText}
+          </Button>
+          {anotherOption && (
+            <Button sx={{
+              color: '#000'
+            }}
+              className="free__trial"
+              variant="textButton"
+              area-label={anotherOption}
+            >
+              {anotherOption}
+            </Button>
+          )}
+        </Box>
+      </Box>
+    </Card>
   );
-}
+};
+
+export default PriceCard;
 
 const styles = {
   pricingBox: {

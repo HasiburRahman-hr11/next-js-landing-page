@@ -6,220 +6,9 @@ import Carousel from 'react-multi-carousel';
 import PriceCard from 'components/price-card';
 import ButtonGroup from 'components/button-group';
 import SectionHeader from 'components/section-header';
-import { IoIosCheckmarkCircle, IoIosCloseCircle } from 'react-icons/io';
 
-const packages = {
-  monthly: [
-    {
-      id: 1,
-      name: 'Free Plan',
-      description: 'For Small teams or office',
-      buttonText: 'Start free trail',
-      priceWithUnit: '$0',
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Drag & Drop Builder',
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "1,000's of Templates",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Blog Support Tools',
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCloseCircle />,
-          text: 'eCommerce Store ',
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Business king',
-      description: 'For Enterprise business',
-      priceWithUnit: '$15',
-      buttonText: 'Create account',
-      anotherOption: 'Or Start 14 Days trail',
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Drag & Drop Builder',
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "1,000's of Templates",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Blog Support Tools',
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'eCommerce Store ',
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 3,
-      header: 'Suggested',
-      headerIcon: <IoIosCheckmarkCircle />,
-      name: 'Pro Master',
-      description: 'For pro level developers',
-      priceWithUnit: '$24',
-      buttonText: 'Create account',
-      anotherOption: 'Or Start 14 Days trail',
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Drag & Drop Builder',
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "1,000's of Templates",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Blog Support Tools',
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'eCommerce Store ',
-          isAvailable: true,
-        },
-      ],
-    },
-  ],
-  annual: [
-    {
-      id: 1,
-      name: 'Free Plan',
-      description: 'For Small teams or office',
-      buttonText: 'Start free trail',
-      priceWithUnit: '$0',
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "1,000's of Templates",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Drag & Drop Builder',
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Blog Support Tools',
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCloseCircle />,
-          text: 'eCommerce Store ',
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Business king',
-      description: 'For Enterprise business',
-      priceWithUnit: '$25',
-      buttonText: 'Create account',
-      anotherOption: 'Or Start 10 Days trail',
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'eCommerce Store',
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Blog Support Tools',
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "1,000's of Templates",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Drag & Drop Builder ',
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 3,
-      header: 'Suggested',
-      headerIcon: <IoIosCheckmarkCircle />,
-      name: 'Pro Master',
-      description: 'For pro level developers',
-      priceWithUnit: '$39',
-      buttonText: 'Create account',
-      anotherOption: 'Or Start 10 Days trail',
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'eCommerce Store',
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Blog Support Tools',
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "1,000's of Templates",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: 'Drag & Drop Builder ',
-          isAvailable: true,
-        },
-      ],
-    },
-  ],
-};
+
+import packages from 'data/packages';
 
 const responsive = {
   desktop: {
@@ -241,6 +30,19 @@ const responsive = {
 
 export default function Package() {
   const { monthly, annual } = packages;
+
+  const [pricingPlan, setPricingPlan] = useState({
+    active: 'monthly',
+    plan: monthly
+  });
+
+  const handlePricingPlan = (plan) => {
+    if (plan === 'annual') {
+      setPricingPlan({ active: 'annual', plan: annual })
+    } else {
+      setPricingPlan({ active: 'monthly', plan: monthly })
+    }
+  }
 
   const sliderParams = {
     additionalTransfrom: 0,
@@ -266,7 +68,43 @@ export default function Package() {
   };
 
   return (
-    <h1>Package</h1>
+    <section id="pricing" sx={{ variant: 'section.pricing' }}>
+      <Container>
+        <SectionHeader
+          slogan="Pricing Plan"
+          title="Choose your pricing plan"
+        />
+
+        <Flex sx={styles.buttonGroup}>
+          <Box sx={styles.buttonGroupInner}>
+            <button
+              className={pricingPlan.active === 'monthly' ? 'active' : ''}
+              area-label="Monthly Plan"
+              onClick={() => handlePricingPlan('monthly')}
+            >
+              Monthly Plan
+            </button>
+            <button
+              className={pricingPlan.active === 'annual' ? 'active' : ''}
+              area-label="Annual Plan"
+              onClick={() => handlePricingPlan('annual')}
+            >
+              Annual Plan
+            </button>
+          </Box>
+        </Flex>
+
+        <Box sx={styles.pricingWrapper} className="pricing__wrapper">
+          <Carousel {...sliderParams}>
+            {pricingPlan.plan.map(packageData => (
+              <Box sx={styles.pricingItem} key={packageData.id}>
+                <PriceCard data={packageData} />
+              </Box>
+            ))}
+          </Carousel>
+        </Box>
+      </Container>
+    </section>
   );
 }
 

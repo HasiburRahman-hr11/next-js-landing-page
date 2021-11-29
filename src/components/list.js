@@ -1,11 +1,32 @@
 import React from 'react';
 import { Flex, Box, IconButton } from 'theme-ui';
 
-export default function List({ items = [], parentStyle, childStyle }) {
+const List = ({ items = [], parentStyle, childStyle }) => {
   return (
-    <h1>List</h1>
+    <Box as="ul" sx={{
+      listStyleType:'none',
+      padding:'0',
+      margin:'0',
+      ...parentStyle
+    }}>
+      {items.map((item , i) => (
+        <Flex
+        key={i}
+        className={item.isAvailable ? 'open' : 'closed'}
+        as="li"
+        sx={{...childStyle}}
+        >
+            <IconButton sx={styles.listIcon} area-label="List Icon">
+            {item.icon}
+            </IconButton>
+            {item.text}
+        </Flex>
+      ))}
+    </Box>
   );
 }
+
+export default List;
 
 const styles = {
   listIcon: {
