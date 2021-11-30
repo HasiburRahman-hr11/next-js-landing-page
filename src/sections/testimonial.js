@@ -5,53 +5,9 @@ import Rating from 'components/rating';
 import ButtonGroup from 'components/button-group';
 import Carousel from 'react-multi-carousel';
 
-import Avatar1 from 'assets/testimonial/avatar1.png';
-import Avatar2 from 'assets/testimonial/avatar2.png';
-import Avatar3 from 'assets/testimonial/avatar3.png';
-import Avatar4 from 'assets/testimonial/avatar4.png';
+import data from 'data/testimonials';
 
-const data = [
-  {
-    id: 1,
-    title: 'Modern look & trending design',
-    description:
-      'Get working experience to work with this amazing team & in future want to work together for bright future projects and also make deposit to freelancer.',
-    avatar: Avatar1,
-    name: 'Denny Hilguston',
-    designation: '@denny.hil',
-    review: 4,
-  },
-  {
-    id: 2,
-    title: 'Design Quality & performance',
-    description:
-      'Get working experience to work with this amazing team & in future want to work together for bright future projects and also make deposit to freelancer.',
-    avatar: Avatar2,
-    name: 'Denny Hilguston',
-    designation: '@denny.hil',
-    review: 5,
-  },
-  {
-    id: 3,
-    title: 'Layout and organized layers',
-    description:
-      'Get working experience to work with this amazing team & in future want to work together for bright future projects and also make deposit to freelancer.',
-    avatar: Avatar3,
-    name: 'Denny Hilguston',
-    designation: '@denny.hil',
-    review: 5,
-  },
-  {
-    id: 4,
-    title: 'Modern look & trending design',
-    description:
-      'Get working experience to work with this amazing team & in future want to work together for bright future projects and also make deposit to freelancer.',
-    avatar: Avatar4,
-    name: 'Denny Hilguston',
-    designation: '@denny.hil',
-    review: 4,
-  },
-];
+
 
 const responsive = {
   desktop: {
@@ -101,7 +57,35 @@ const carouselParams = {
 
 export default function TestimonialCard() {
   return (
-   <h1>Testimonial Card</h1>
+   <section id="testimonial" sx={{variant:'section.testimonial'}}>
+     <Container css={{textAlign:'center'}}>
+      <SectionHeader 
+      slogan="Testimonial"
+      title="Meet Client Satisfaction"
+      />
+     </Container>
+     <Box sx={styles.carouselWrapper}>
+      <Carousel {...carouselParams}>
+        {data.map(item => (
+          <Box sx={styles.reviewCard} key={item.id}>
+            <Rating rating={item.review} /> 
+            <Heading as="h3" sx={styles.title}>{item.title}</Heading>
+            <Text sx={styles.description}>{item.description}</Text>
+
+            <div className="card-footer">
+              <div className="image">
+                <Image src={item.avatar} alt="Client Image" />
+              </div>
+              <div className="reviewer-info">
+                <Heading as="h4" sx={styles.heading}>{item.name}</Heading>
+                <Text sx={styles.designation}>{item.designation}</Text>
+              </div>
+            </div>
+          </Box>
+        ))}
+      </Carousel>
+     </Box>
+   </section>
   );
 }
 
